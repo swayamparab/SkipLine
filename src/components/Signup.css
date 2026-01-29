@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #1e1e1e;
+}
+
+/* Full screen wrapper */
+.screen {
+  min-height: 100vh;
+  background: #2b2b2b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card */
+.card {
+  width: 320px;
+  background: #3a3a3a;
+  border-radius: 24px;
+  padding: 32px 26px;
+  text-align: center;
+}
+
+/* Heading */
+.card h2 {
+  color: #ffffff;
+  font-size: 22px;
+  margin-bottom: 26px;
+}
+
+/* Inputs */
+.card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.card input::placeholder {
+  color: #9a9a9a;
+}
+
+/* Primary button (Login / Sign Up) */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  background: #2f6f8f;
+  color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+}
+
+/* Back button */
+.back-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+/* Mobile-first safety */
+@media (max-width: 400px) {
+  .card {
+    width: 90%;
+  }
+}
