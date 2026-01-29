@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import './Signup.css'
 
 const Signup = ({setScreen}) => {
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSignup = async () => {
+
+      if (!name.trim()) {
+        alert("Name cannot be empty");
+        return;
+      }
+      if (name.trim().length < 3) {
+        alert("Please enter a valid name");
+        return;
+      }
 
       const emailLower = email.toLowerCase();
       if (!emailLower.endsWith("@student.sfit.ac.in")) {
@@ -23,14 +35,23 @@ const Signup = ({setScreen}) => {
           password
         );
 
-        await sendEmailVerification(userCredential.user);
+        const user = userCredential.user;
+
+        await sendEmailVerification(user);
+
+        await setDoc(doc(db, "users", user.uid), {
+          name: name.trim(),
+          email: emailLower,
+          createdAt: new Date()
+        });
 
         alert("Verification email sent. Please check your inbox.");
 
         setScreen("login");
 
       } catch (error) {
-        alert(error.message);
+        console.error("Signup error:", error);
+        alert(error.code + " : " + error.message);
       }
     };
 
@@ -43,9 +64,10 @@ const Signup = ({setScreen}) => {
     <div class="card">
         <h2>Student Sign Up</h2>
 
-        {/* <input type="text" placeholder="Full Name" /> */}
+        <input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)}/>
+
         <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
-        {/* <input type="tel" placeholder="Phone Number" /> */}
+
         <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
 
         <button class="login-btn" onClick={handleSignup}>Sign Up</button>
