@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import './Dashboard.css'
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,8 +35,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Welcome, {userData?.name || "Student"} 👋</h2>
+    <div className="dashDiv">
+      <h2 style={{color: 'white'}}>Welcome, {userData?.name || "Student"} 👋</h2>
+      <button className="logoutBtn" onClick={handleLogout}>Log out</button>
     </div>
   );
 };

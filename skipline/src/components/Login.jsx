@@ -8,16 +8,6 @@ const Login = ({setScreen}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // const handleLogin = async () => {
-    //     try {
-    //         await signInWithEmailAndPassword(auth, email, password);
-    //         alert("Login successful!");
-    //         setScreen("dashboard");
-    //     } catch (error) {
-    //         alert(error.message);
-    //     }
-    // };
-
     const handleLogin = async () => {
         try {
             const userCredential = await signInWithEmailAndPassword(
@@ -34,9 +24,6 @@ const Login = ({setScreen}) => {
             alert("Please verify your email before logging in.");
             return;
             }
-
-            alert("Login successful!");
-            setScreen("dashboard");
 
         } catch (error) {
             alert(error.message);
