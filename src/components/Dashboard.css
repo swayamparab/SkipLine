@@ -1,0 +1,17 @@
+.dashDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px
+}
+
+.logoutBtn{
+    width: 70px;
+    height: 30px;
+    font-size: 18px;
+    margin-top: 10px;
+    background-color: rgb(126, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+}
