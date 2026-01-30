@@ -1,0 +1,55 @@
+.header {
+  background: var(--header-gradient);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header-logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  background-color: hsla(175, 70%, 40%, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid hsla(175, 70%, 40%, 0.3);
+}
+.logo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo-initials {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+.logo-tagline {
+  font-size: 0.5rem;
+  color: hsla(175, 70%, 40%, 0.8);
+}
+.logo-ai {
+  color: var(--accent);
+}
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+.title-accent {
+  color: var(--accent);
+}
+.header-subtitle {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0;
+}

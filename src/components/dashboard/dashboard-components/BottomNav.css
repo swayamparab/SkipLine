@@ -1,0 +1,35 @@
+.bottom-nav {
+  background-color: var(--muted);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.nav-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.nav-button:hover {
+  color: var(--foreground);
+}
+.nav-button.active {
+  background-color: var(--secondary);
+  color: var(--foreground);
+}
+.nav-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.nav-label {
+  font-weight: 500;
+}

@@ -1,0 +1,92 @@
+.action-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.join-queue-card {
+  background: var(--card-gradient);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-primary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.join-queue-card:hover {
+  transform: scale(1.05);
+}
+.join-queue-card:active {
+  transform: scale(0.95);
+}
+.users-icon-container {
+  position: relative;
+}
+.users-icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--primary);
+}
+.pulse-indicator {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: hsla(175, 70%, 40%, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pulse-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--primary);
+}
+.join-queue-text {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: 0.05em;
+}
+.estimated-time-card {
+  background: var(--card-gradient);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-primary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.clock-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+.time-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--highlight-green);
+}
+.time-label {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}

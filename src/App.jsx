@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landingpage from "./components/Landingpage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
@@ -29,9 +29,7 @@ function AppRoutes() {
       <Route path="/" element={<Landingpage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
-      <Route
-        path="/dashboard"
+      <Route path="/dashboard" 
         element={
           <ProtectedRoute user={user}>
             <Dashboard />
