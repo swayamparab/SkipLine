@@ -1,3 +1,7 @@
+body{
+    background-color: black;
+}
+
 .dashDiv{
     display: flex;
     flex-direction: column;

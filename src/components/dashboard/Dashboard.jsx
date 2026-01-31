@@ -56,7 +56,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="app-container dashboard-theme">
+    <div className="app-container dashboard-theme" style={{backgroundColor: '#1d1d1d'}}>
          <button className="logoutBtn" onClick={handleLogout}>Log out</button>
       <div className="app-content">
         <Header />

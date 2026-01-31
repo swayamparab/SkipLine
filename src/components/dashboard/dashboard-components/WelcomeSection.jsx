@@ -27,7 +27,7 @@ const WelcomeSection = () => {
 
   return (
     <div className="welcome-section">
-      <h2 className="welcome-title" style={{color: 'black'}}>Welcome, {userData?.name || "Student"} 👋</h2>
+      <h2 className="welcome-title" style={{color: 'white'}}>Welcome, {userData?.name || "Student"} 👋</h2>
       <p className="welcome-text">
         Join the queue in seconds and track your waiting time.
         <br />
