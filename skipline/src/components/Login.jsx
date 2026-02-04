@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import './Login.css'
 
-const Login = ({setScreen}) => {
+const Login = () => {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleLogin = async () => {
+
+        if (!email || !password) {
+            alert("Please enter email and password");
+            return;
+        }
+        
         try {
             const userCredential = await signInWithEmailAndPassword(
             auth,
@@ -25,6 +34,8 @@ const Login = ({setScreen}) => {
             return;
             }
 
+            navigate('/dashboard');
+
         } catch (error) {
             alert(error.message);
         }
@@ -32,7 +43,7 @@ const Login = ({setScreen}) => {
 
 
     const handleBack = ()=>{
-        setScreen("landingpage")
+        navigate('/')
     }
 
   return (

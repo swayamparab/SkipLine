@@ -3,9 +3,12 @@ import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import './Signup.css'
 
-const Signup = ({setScreen}) => {
+const Signup = () => {
+
+    const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -47,7 +50,7 @@ const Signup = ({setScreen}) => {
 
         alert("Verification email sent. Please check your inbox.");
 
-        setScreen("login");
+        navigate('/login')
 
       } catch (error) {
         console.error("Signup error:", error);
@@ -56,7 +59,7 @@ const Signup = ({setScreen}) => {
     };
 
     function handleBack(){
-      setScreen("landingpage")
+      navigate('/')
     }
 
   return (

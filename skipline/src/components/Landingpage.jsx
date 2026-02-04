@@ -1,7 +1,11 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import './Landingpage.css'
 
-const Landingpage = (props) => {
+const Landingpage = () => {
+
+  const navigate = useNavigate();
+
   return (
       <div className="screen">
       <div className="card">
@@ -16,7 +20,7 @@ const Landingpage = (props) => {
 
         <button
           className="login-btn"
-          onClick={() => props.setScreen("login")}
+          onClick={() => navigate('/login')}
         >
           Log in
         </button>
@@ -24,7 +28,7 @@ const Landingpage = (props) => {
         <button
           className="login-btn"
           style={{ background: "#7f8c8d" }}
-          onClick={() => props.setScreen("signup")}
+          onClick={() => navigate('/signup')}
         >
           Sign Up
         </button>

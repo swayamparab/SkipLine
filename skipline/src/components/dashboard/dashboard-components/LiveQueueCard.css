@@ -1,0 +1,62 @@
+.live-queue-card {
+  background: var(--card-gradient);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-primary);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.live-badge {
+  background: var(--button-gradient);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.live-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--highlight-red);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.live-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: 0.05em;
+}
+.live-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.live-item {
+  display: block;
+}
+.live-label {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.live-value {
+  color: var(--foreground);
+  font-weight: 700;
+}
+.live-value-red {
+  color: var(--highlight-red);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+.live-value-green {
+  color: var(--highlight-green);
+  font-weight: 700;
+}
