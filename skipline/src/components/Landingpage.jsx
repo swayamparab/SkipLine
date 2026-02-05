@@ -11,7 +11,7 @@ const Landingpage = () => {
       <div className="card">
 
         <img
-          src="../public/Logo.png"
+          src='/Logo.png'
           alt="SkipLineAI"
           style={{ width: "80px", marginBottom: "16px" }}
         />
