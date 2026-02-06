@@ -1,8 +1,8 @@
 import './ActionCards.css';
-const ActionCards = ({ estimatedTime, onJoinQueue }) => {
+const ActionCards = ({ estimatedTime, onJoinQueue, disabled, label }) => {
   return (
     <div className="action-cards">
-      <button onClick={onJoinQueue} className="join-queue-card">
+      <button onClick={onJoinQueue} disabled={disabled} className="join-queue-card">
         <div className="users-icon-container">
           <svg className="users-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -14,7 +14,7 @@ const ActionCards = ({ estimatedTime, onJoinQueue }) => {
             <div className="pulse-dot"></div>
           </div>
         </div>
-        <span className="join-queue-text">JOIN QUEUE</span>
+        <span className="join-queue-text">{label}</span>
       </button>
       <div className="estimated-time-card">
         <div className="time-display">

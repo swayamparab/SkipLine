@@ -1,5 +1,6 @@
 import './LiveQueueCard.css';
 const LiveQueueCard = ({ peopleInQueue, nowServing, avgServingTime }) => {
+
   return (
     <div className="live-queue-card">
       <div className="live-badge">
@@ -12,7 +13,7 @@ const LiveQueueCard = ({ peopleInQueue, nowServing, avgServingTime }) => {
           <span className="live-label">People In</span>
           <br />
           <span className="live-label">Queue: </span>
-          <span className="live-value-red">{peopleInQueue}</span>
+          <span className="live-value-red">{peopleInQueue} people in queue</span>
         </div>
         <div className="dashed-separator"></div>
         
