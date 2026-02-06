@@ -10,10 +10,9 @@ const LiveQueueCard = ({ peopleInQueue, nowServing, avgServingTime }) => {
       
       <div className="live-content">
         <div className="live-item">
-          <span className="live-label">People In</span>
-          <br />
-          <span className="live-label">Queue: </span>
-          <span className="live-value-red">{peopleInQueue} people in queue</span>
+          <span className="live-label">People In Queue:</span>
+          {/* <span className="live-label">Queue: </span> */}
+          <span className="live-value-green">{peopleInQueue} people in queue</span>
         </div>
         <div className="dashed-separator"></div>
         
@@ -24,9 +23,7 @@ const LiveQueueCard = ({ peopleInQueue, nowServing, avgServingTime }) => {
         <div className="dashed-separator"></div>
         
         <div className="live-item">
-          <span className="live-label">Avg Serving</span>
-          <br />
-          <span className="live-label">Time: </span>
+          <span className="live-label">Avg Serving Time:</span>
           <span className="live-value-green">{avgServingTime} min</span>
         </div>
       </div>

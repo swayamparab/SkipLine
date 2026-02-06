@@ -8,10 +8,10 @@ import {
   runTransaction,
   serverTimestamp,
   collection,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import { deleteDoc } from "firebase/firestore";
 
 import Header from "./dashboard-components/Header";
 import WelcomeSection from "./dashboard-components/WelcomeSection";
@@ -39,6 +39,9 @@ const Dashboard = () => {
   const [peopleInQueue, setPeopleInQueue] = useState(0);
   const [yourPosition, setYourPosition] = useState(null);
 
+  // 🔑 derived state
+  const canJoinQueue = queueInfo?.isOpen === true;
+
   // AUTH READY
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, () => {
@@ -56,15 +59,26 @@ const Dashboard = () => {
       const memberRef = doc(db, "queueMembers", auth.currentUser.uid);
 
       await runTransaction(db, async (transaction) => {
+        // already in queue
         const memberSnap = await transaction.get(memberRef);
         if (memberSnap.exists()) {
           throw new Error("Already in queue");
         }
 
+        // read queue status
         const queueSnap = await transaction.get(queueRef);
-        if (!queueSnap.exists() || !queueSnap.data().isOpen) return;
+        if (!queueSnap.exists()) {
+          throw new Error("Queue not available");
+        }
 
-        const nextToken = queueSnap.data().lastTokenIssued + 1;
+        const queueData = queueSnap.data();
+
+        // admin closed queue
+        if (!queueData.isOpen) {
+          throw new Error("Queue is currently closed");
+        }
+
+        const nextToken = (queueData.lastTokenIssued || 0) + 1;
 
         transaction.update(queueRef, {
           lastTokenIssued: nextToken,
@@ -82,20 +96,17 @@ const Dashboard = () => {
     }
   };
 
-  //LEAVE QUEUE
+  // LEAVE QUEUE (always allowed)
   const handleLeaveQueue = async () => {
     try {
       if (!auth.currentUser) return;
-
       if (!window.confirm("Leave the queue?")) return;
 
-      const memberRef = doc(db, "queueMembers", auth.currentUser.uid);
-      await deleteDoc(memberRef);
-    } catch (err) {
+      await deleteDoc(doc(db, "queueMembers", auth.currentUser.uid));
+    } catch {
       alert("Failed to leave queue");
     }
   };
-
 
   // LOGOUT
   const handleLogout = async () => {
@@ -116,7 +127,7 @@ const Dashboard = () => {
     fetchUser();
   }, [authReady]);
 
-  // USER + QUEUE DOC LISTENERS
+  // USER + QUEUE LISTENERS
   useEffect(() => {
     if (!authReady || !auth.currentUser?.uid) return;
 
@@ -143,24 +154,21 @@ const Dashboard = () => {
   useEffect(() => {
     if (!authReady) return;
 
-    const unsub = onSnapshot(
-      collection(db, "queueMembers"),
-      (snap) => {
-        setPeopleInQueue(snap.size);
+    const unsub = onSnapshot(collection(db, "queueMembers"), (snap) => {
+      setPeopleInQueue(snap.size);
 
-        if (!queueMember) {
-          setYourPosition(null);
-          return;
-        }
-
-        let ahead = 0;
-        snap.docs.forEach((d) => {
-          if (d.data().token < queueMember.token) ahead++;
-        });
-
-        setYourPosition(ahead + 1);
+      if (!queueMember) {
+        setYourPosition(null);
+        return;
       }
-    );
+
+      let ahead = 0;
+      snap.docs.forEach((d) => {
+        if (d.data().token < queueMember.token) ahead++;
+      });
+
+      setYourPosition(ahead + 1);
+    });
 
     return () => unsub();
   }, [authReady, queueMember]);
@@ -185,9 +193,23 @@ const Dashboard = () => {
         <ActionCards
           estimatedTime={peopleInQueue * 1.5}
           onJoinQueue={queueMember ? handleLeaveQueue : handleJoinQueue}
-          disabled={!userData}
+          disabled={!userData || (!queueMember && !canJoinQueue)}
           label={queueMember ? "LEAVE QUEUE" : "JOIN QUEUE"}
         />
+
+        {/* Queue closed message */}
+        {!queueMember && queueInfo && !queueInfo.isOpen && (
+          <p
+            style={{
+              color: "#ff6b6b",
+              marginTop: "0.5rem",
+              textAlign: "center",
+              fontSize: "0.9rem",
+            }}
+          >
+            Queue is currently closed by admin
+          </p>
+        )}
 
         <LiveQueueCard
           peopleInQueue={peopleInQueue}
