@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { deleteDoc } from "firebase/firestore";
 
 import Header from "./dashboard-components/Header";
 import WelcomeSection from "./dashboard-components/WelcomeSection";
@@ -32,6 +33,7 @@ const Dashboard = () => {
 
   const [queueMember, setQueueMember] = useState(null);
   const [queueInfo, setQueueInfo] = useState(null);
+
   const [loadingQueue, setLoadingQueue] = useState(true);
 
   const [peopleInQueue, setPeopleInQueue] = useState(0);
@@ -45,7 +47,7 @@ const Dashboard = () => {
     return () => unsub();
   }, []);
 
-  // JOIN QUEUE (SIMPLE)
+  // JOIN QUEUE
   const handleJoinQueue = async () => {
     try {
       if (!auth.currentUser || !userData?.name) return;
@@ -79,6 +81,21 @@ const Dashboard = () => {
       alert(err.message);
     }
   };
+
+  //LEAVE QUEUE
+  const handleLeaveQueue = async () => {
+    try {
+      if (!auth.currentUser) return;
+
+      if (!window.confirm("Leave the queue?")) return;
+
+      const memberRef = doc(db, "queueMembers", auth.currentUser.uid);
+      await deleteDoc(memberRef);
+    } catch (err) {
+      alert("Failed to leave queue");
+    }
+  };
+
 
   // LOGOUT
   const handleLogout = async () => {
@@ -166,10 +183,10 @@ const Dashboard = () => {
         <WelcomeSection />
 
         <ActionCards
-          estimatedTime={10}
-          onJoinQueue={handleJoinQueue}
-          disabled={!userData || !!queueMember}
-          label={queueMember ? "ALREADY IN QUEUE" : "JOIN QUEUE"}
+          estimatedTime={peopleInQueue * 1.5}
+          onJoinQueue={queueMember ? handleLeaveQueue : handleJoinQueue}
+          disabled={!userData}
+          label={queueMember ? "LEAVE QUEUE" : "JOIN QUEUE"}
         />
 
         <LiveQueueCard

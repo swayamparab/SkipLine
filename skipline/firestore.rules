@@ -2,6 +2,37 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Queue metadata (single document)
+    match /queue/canteen {
+      // Anyone can read queue info (ETA, status)
+      allow read: if true;
+
+      // Logged-in users can update token counter
+      allow update: if request.auth != null;
+
+      // No client creates or deletes this doc
+      allow create, delete: if false;
+    }
+
+    // Queue members (one document per user)
+    match /queueMembers/{userId} {
+
+      // Needed for live queue count & position
+      allow read: if request.auth != null;
+
+      // JOIN queue (create own doc)
+      allow create: if request.auth != null
+                    && request.auth.uid == userId;
+
+      // LEAVE queue (delete own doc)
+      allow delete: if request.auth != null
+                    && request.auth.uid == userId;
+
+      // No client updates allowed
+      allow update: if false;
+    }
+
+    // User profile
     match /users/{userId} {
       allow read, write: if request.auth != null
                          && request.auth.uid == userId;
