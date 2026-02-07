@@ -1,0 +1,40 @@
+body{
+    background-color: black;
+}
+
+.dashDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px
+}
+
+.logoutBtn{
+    width: 70px;
+    height: 30px;
+    font-size: 18px;
+    margin-top: 10px;
+    background-color: rgb(255, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.app-container dashboard-theme {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.status-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}

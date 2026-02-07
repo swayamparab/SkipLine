@@ -1,0 +1,178 @@
+/* ===============================
+   ADMIN DASHBOARD (SCOPED)
+   =============================== */
+
+/* Root container – isolates admin layout */
+.admin-container {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: normal;
+}
+
+/* Reset spacing ONLY inside admin */
+.admin-container h1,
+.admin-container h2,
+.admin-container h3,
+.admin-container p {
+  margin: 0;
+}
+
+/* Header */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+body{
+  background-color: hsl(195, 30%, 8%);;
+}
+
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* ADMIN badge */
+.admin-badge {
+  background: var(--button-gradient);
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+}
+
+/* Queue meta card */
+.admin-queue-card {
+  background: var(--card-gradient);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-primary);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* LIVE badge */
+.live-badge {
+  background: var(--button-gradient);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.live-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--highlight-red);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.live-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: 0.08em;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Meta content */
+.live-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.live-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.live-label {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.live-value {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.live-value-green {
+  color: var(--highlight-green);
+  font-weight: 700;
+}
+
+.live-value-red {
+  color: var(--highlight-red);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+/* Queue list */
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Individual queue card */
+.queue-card {
+  background: var(--card-gradient);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-primary);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Name + position */
+.queue-name {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.queue-eta {
+  font-size: 0.875rem;
+  color: var(--foreground-muted);
+}
+
+/* Serve button */
+.serve-btn {
+  background: var(--button-gradient);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.4rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  cursor: pointer;
+  box-shadow: var(--glow-primary);
+}
+
+.serve-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--glow-strong);
+}
