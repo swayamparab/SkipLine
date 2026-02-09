@@ -39,7 +39,9 @@ const Dashboard = () => {
   const [peopleInQueue, setPeopleInQueue] = useState(0);
   const [yourPosition, setYourPosition] = useState(null);
 
-  // 🔑 derived state
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // derived state
   const canJoinQueue = queueInfo?.isOpen === true;
 
   // AUTH READY
@@ -49,6 +51,21 @@ const Dashboard = () => {
     });
     return () => unsub();
   }, []);
+
+
+  //CHECK ADMIN
+  useEffect(() => {
+    if (!authReady || !auth.currentUser) return;
+
+    const ref = doc(db, "admins", auth.currentUser.uid);
+
+    const unsub = onSnapshot(ref, (snap) => {
+      setIsAdmin(snap.exists() && snap.data().role === "admin");
+    });
+
+    return () => unsub();
+  }, [authReady]);
+
 
   // JOIN QUEUE
   const handleJoinQueue = async () => {
@@ -185,6 +202,12 @@ const Dashboard = () => {
       <button className="logoutBtn" onClick={handleLogout}>
         Log out
       </button>
+
+      {isAdmin && (
+        <button className="logoutBtn" onClick={() => navigate("/admin")}>
+          Admin
+        </button>
+      )}
 
       <div className="app-content">
         <Header />
