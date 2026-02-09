@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import './Login.css'
 
@@ -46,6 +47,24 @@ const Login = () => {
         navigate('/')
     }
 
+    const handleForgotPassword = async () => {
+    if (!email) {
+        alert("Please enter your email first");
+        return;
+    }
+
+    try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Password reset email sent. Check your inbox.");
+    } catch (err) {
+        if (err.code === "auth/user-not-found") {
+            alert("No account found with this email");
+        } else {
+            alert("Failed to send reset email");
+        }
+    }
+    };
+
   return (
         <div className="screen">
             <div className="card">
@@ -56,7 +75,10 @@ const Login = () => {
 
             <button className="login-btn" onClick={handleLogin}>Log in</button>
 
-            <button className="back-btn" onClick={handleBack}>↩ Back</button>
+            <div className="lowerBtns">
+                <button className="back-btn" onClick={handleBack}>↩ Back</button>
+                <button className="back-btn" onClick={handleForgotPassword}>forgot password?</button>
+            </div>
             </div>
         </div>
   )

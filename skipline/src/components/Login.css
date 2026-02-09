@@ -91,3 +91,9 @@ body {
     width: 90%;
   }
 }
+
+.lowerBtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
