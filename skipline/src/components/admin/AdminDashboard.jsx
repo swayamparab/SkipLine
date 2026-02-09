@@ -9,6 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
 const AVG_SERVE_TIME = 1.5; // minutes
@@ -18,6 +19,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   const [queueStatus, setQueueStatus] = useState(null); 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ref = doc(db, "queue", "canteen");
@@ -74,11 +77,11 @@ export default function AdminDashboard() {
     <div className="admin-container">
       <header className="admin-header">
         <h1 className="admin-title">Admin Dashboard</h1>
-        <span className="admin-badge">ADMIN</span>
+        <button className="admin-badge" onClick={() => navigate('/dashboard')}>Go to Dashboard</button>
       </header>
 
       {/* Queue meta */}
-      <button className="toggle-btn" onClick={toggleQueue}>
+      <button className="close-queue-btn" onClick={toggleQueue}>
         {queueStatus?.isOpen ? "Close Queue" : "Open Queue"}
       </button>
 

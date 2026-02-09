@@ -47,6 +47,7 @@ body{
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--foreground);
+  margin-top: 10px;
 }
 
 /* Queue meta card */
@@ -175,4 +176,15 @@ body{
 .serve-btn:hover {
   transform: translateY(-1px);
   box-shadow: var(--glow-strong);
+}
+
+.close-queue-btn{
+  background: var(--button-gradient);
+  border-radius: 9999px;
+  padding: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  margin-bottom: 10px;
 }
