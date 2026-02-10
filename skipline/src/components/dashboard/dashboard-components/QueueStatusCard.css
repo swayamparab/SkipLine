@@ -3,7 +3,7 @@
   border: 1px solid var(--border);
   box-shadow: var(--glow-primary);
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 .status-badge {
   background: var(--button-gradient);

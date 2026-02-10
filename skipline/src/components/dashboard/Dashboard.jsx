@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Header from "./dashboard-components/Header";
 import WelcomeSection from "./dashboard-components/WelcomeSection";
@@ -19,12 +20,16 @@ import ActionCards from "./dashboard-components/ActionCards";
 import QueueStatusCard from "./dashboard-components/QueueStatusCard";
 import LiveQueueCard from "./dashboard-components/LiveQueueCard";
 import BottomNav from "./dashboard-components/BottomNav";
+import ProfileDrawer from "./dashboard-components/ProfileDrawer";
 
 import "./Dashboard.css";
 import "./variable.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  //Drawer State (CORRECT POSITION)
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [authReady, setAuthReady] = useState(false);
 
@@ -93,6 +98,7 @@ const Dashboard = () => {
         // admin closed queue
         if (!queueData.isOpen) {
           throw new Error("Queue is currently closed");
+          // toast.warning("Queue is currently close")
         }
 
         const nextToken = (queueData.lastTokenIssued || 0) + 1;
@@ -107,6 +113,8 @@ const Dashboard = () => {
           token: nextToken,
           joinedAt: serverTimestamp(),
         });
+
+        toast.success("You Joined the Queue!")
       });
     } catch (err) {
       alert(err.message);
@@ -119,6 +127,8 @@ const Dashboard = () => {
       if (!auth.currentUser) return;
       if (!window.confirm("Leave the queue?")) return;
 
+      toast.info("Left Queue");
+
       await deleteDoc(doc(db, "queueMembers", auth.currentUser.uid));
     } catch {
       alert("Failed to leave queue");
@@ -129,6 +139,7 @@ const Dashboard = () => {
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/", { replace: true });
+    toast.info("Logged Out");
   };
 
   // FETCH USER
@@ -199,15 +210,6 @@ const Dashboard = () => {
       className="app-container dashboard-theme"
       style={{ backgroundColor: "#1d1d1d" }}
     >
-      <button className="logoutBtn" onClick={handleLogout}>
-        Log out
-      </button>
-
-      {isAdmin && (
-        <button className="logoutBtn" onClick={() => navigate("/admin")}>
-          Admin
-        </button>
-      )}
 
       <div className="app-content">
         <Header />
@@ -234,21 +236,41 @@ const Dashboard = () => {
           </p>
         )}
 
-        <LiveQueueCard
-          peopleInQueue={peopleInQueue}
-          nowServing={queueInfo?.currentServing ?? "—"}
-          avgServingTime={1.5}
+        <div className="status-section">
+          <LiveQueueCard
+            peopleInQueue={peopleInQueue}
+            nowServing={queueInfo?.currentServing ?? "—"}
+            avgServingTime={1.5}
+          />
+
+          {queueMember && yourPosition && (
+            <QueueStatusCard
+              token={queueMember.token}
+              position={yourPosition}
+              estimatedWait={yourPosition * 1.5}
+            />
+          )}
+        </div>
+         
+        <BottomNav
+          activeTab={activeTab}
+          onTabChange={(tab) => {
+            setActiveTab(tab);
+
+            if (tab === "profile") {
+              setDrawerOpen(true);
+            }
+          }}
         />
 
-        {queueMember && yourPosition && (
-          <QueueStatusCard
-            token={queueMember.token}
-            position={yourPosition}
-            estimatedWait={yourPosition * 1.5}
-          />
-        )}
-
-        <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+        <ProfileDrawer
+          isOpen={drawerOpen} isAdmin={isAdmin}
+          onClose={() => {
+            setDrawerOpen(false);
+            setActiveTab("home");
+          }}
+          onLogout={handleLogout}   
+        />
       </div>
     </div>
   );

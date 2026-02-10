@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import './Signup.css'
 
 const Signup = () => {
@@ -17,17 +18,17 @@ const Signup = () => {
     const handleSignup = async () => {
 
       if (!name.trim()) {
-        alert("Name cannot be empty");
+        toast.error("Name cannot be empty");
         return;
       }
       if (name.trim().length < 3) {
-        alert("Please enter a valid name");
+        toast.error("Please enter a valid name");
         return;
       }
 
       const emailLower = email.toLowerCase();
       if (!emailLower.endsWith("@student.sfit.ac.in")) {
-        alert("Use college email id only");
+        toast.error("Use college email id only");
         return;
       }
 
@@ -48,13 +49,13 @@ const Signup = () => {
           createdAt: new Date()
         });
 
-        alert("Verification email sent. Please check your inbox.");
+        toast.success("Verification email sent. Please check your inbox.");
 
         navigate('/login')
 
       } catch (error) {
         console.error("Signup error:", error);
-        alert(error.code + " : " + error.message);
+        toast.error(error.code + " : " + error.message);
       }
     };
 

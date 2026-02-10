@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import './Login.css'
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
     const handleLogin = async () => {
 
         if (!email || !password) {
-            alert("Please enter email and password");
+            toast.error("Please enter email and password");
             return;
         }
         
@@ -31,14 +32,15 @@ const Login = () => {
             await user.reload();
 
             if (!user.emailVerified) {
-            alert("Please verify your email before logging in.");
+            toast.warning("Please verify your email before logging in.");
             return;
             }
 
+            toast.success("Login Successful!")
             navigate('/dashboard');
 
         } catch (error) {
-            alert(error.message);
+            toast.error(error.message);
         }
     };
 
@@ -49,18 +51,18 @@ const Login = () => {
 
     const handleForgotPassword = async () => {
     if (!email) {
-        alert("Please enter your email first");
+        toast.error("Please enter your email first");
         return;
     }
 
     try {
         await sendPasswordResetEmail(auth, email);
-        alert("Password reset email sent. Check your inbox.");
+        toast.success("Password reset email sent. Check your inbox.");
     } catch (err) {
         if (err.code === "auth/user-not-found") {
-            alert("No account found with this email");
+            toast.error("No account found with this email");
         } else {
-            alert("Failed to send reset email");
+            toast.error("Failed to send reset email");
         }
     }
     };

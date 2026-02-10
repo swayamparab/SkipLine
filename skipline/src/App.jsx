@@ -3,6 +3,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Landingpage from "./components/Landingpage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -71,6 +74,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppRoutes />
+      <ToastContainer
+        position="top-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
     </BrowserRouter>
   );
 }

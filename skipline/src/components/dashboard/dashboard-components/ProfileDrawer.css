@@ -1,0 +1,137 @@
+/* Overlay */
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 10, 20, 0.6);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 998;
+}
+
+.drawer-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Drawer */
+.profile-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 290px;
+  height: 100%;
+  padding: 24px 20px;
+  transition: right 0.35s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+
+  /* 🌊 MATCHING YOUR THEME */
+  background: linear-gradient(
+    160deg,
+    #0f2027,
+    #133c3a,
+    #0a2c2d
+  );
+
+  box-shadow: -5px 0 25px rgba(0, 255, 170, 0.15);
+}
+
+.profile-drawer.open {
+  right: 0;
+}
+
+/* Header Section */
+.drawer-header {
+  margin-bottom: 25px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d4aa, #009688);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+  box-shadow: 0 0 15px rgba(0, 255, 170, 0.3);
+}
+
+.user-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.user-info p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #a0f5e6;
+  opacity: 0.8;
+}
+
+/* Menu Items */
+.drawer-item {
+  color: #d8fff7;
+  padding: 14px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+.drawer-item:hover {
+  transform: translateX(6px);
+  color: #00ffc8;
+}
+
+/* Divider */
+.divider {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  margin: 6px 0;
+}
+
+/* Logout Button */
+.logout-btn {
+  margin-top: auto;
+  padding: 5px 20px;
+  margin: 5px;
+  background: linear-gradient(135deg, #ff4b4b, #ff0000);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+  align-self: flex-start;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.6);
+}
+
+.niche-ka-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position:absolute;
+  bottom: 50px;
+}
