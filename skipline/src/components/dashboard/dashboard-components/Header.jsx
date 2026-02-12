@@ -4,10 +4,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-logo">
-        <div className="logo-content">
-          <span className="logo-initials">SL</span>
-          <span className="logo-tagline">SkipLine<span className="logo-ai">AI</span></span>
-        </div>
+        <img className='header-logo-img' src="/Logo.png" alt="" />
       </div>
       <div className="header-text">
         <h1 className="header-title">

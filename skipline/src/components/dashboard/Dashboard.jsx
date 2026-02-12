@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import Header from "./dashboard-components/Header";
 import WelcomeSection from "./dashboard-components/WelcomeSection";
@@ -127,7 +127,7 @@ const Dashboard = () => {
       if (!auth.currentUser) return;
       if (!window.confirm("Leave the queue?")) return;
 
-      toast.info("Left Queue");
+      toast.success("Left Queue");
 
       await deleteDoc(doc(db, "queueMembers", auth.currentUser.uid));
     } catch {
@@ -139,7 +139,7 @@ const Dashboard = () => {
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/", { replace: true });
-    toast.info("Logged Out");
+    toast.success("Logged Out");
   };
 
   // FETCH USER

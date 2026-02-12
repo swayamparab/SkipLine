@@ -11,6 +11,7 @@ import {
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
+import toast from "react-hot-toast";
 
 const AVG_SERVE_TIME = 1.5; // minutes
 
@@ -60,6 +61,13 @@ export default function AdminDashboard() {
       isOpen: !queueStatus.isOpen,
       updatedAt: new Date(),
     });
+
+    if(queueStatus?.isOpen){
+      toast.success("Queue is now closed")
+    }
+    else{
+      toast.success("Queue is now open")
+    }
   };
 
   const handleServe = async (uid) => {
@@ -69,6 +77,7 @@ export default function AdminDashboard() {
       console.error("Serve failed:", err);
       alert("Failed to serve user");
     }
+    toast.success("Served!")
   };
 
   if (loading) return <p>Loading queue...</p>;

@@ -53,3 +53,7 @@
   color: var(--muted-foreground);
   margin: 0;
 }
+
+.header-logo-img{
+  width: 80px;
+}

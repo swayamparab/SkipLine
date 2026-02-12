@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import './Login.css'
 
 const Login = () => {
@@ -32,7 +32,7 @@ const Login = () => {
             await user.reload();
 
             if (!user.emailVerified) {
-            toast.warning("Please verify your email before logging in.");
+            toast.error("Please verify your email before logging in.");
             return;
             }
 
